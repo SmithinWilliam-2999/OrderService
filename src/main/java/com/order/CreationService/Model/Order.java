@@ -2,8 +2,8 @@ package com.order.CreationService.Model;
 
 import com.order.CreationService.OrderStatus.OrderStatus;
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.PostMapping;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,20 +16,23 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String orderNumber;
-    @Column(nullable = false)
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus status;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
+
     private BigDecimal totalAmount;
 
-    public Order() {
-
-    }
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -78,25 +81,5 @@ public class Order {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderNumber='" + orderNumber + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", items=" + items +
-                ", totalAmount=" + totalAmount +
-                '}';
-    }
-
-    public Order(Long id, String orderNumber, OrderStatus status, LocalDateTime createdAt, List<OrderItem> items, BigDecimal totalAmount) {
-        this.id = id;
-        this.orderNumber = orderNumber;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.items = items;
-        this.totalAmount = totalAmount;
-    }
 }
+

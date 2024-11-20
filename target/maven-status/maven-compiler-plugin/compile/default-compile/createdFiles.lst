@@ -2,6 +2,9 @@ com/order/CreationService/Service/OrderService.class
 com/order/CreationService/Controller/OrderController.class
 com/order/CreationService/Model/Order.class
 com/order/CreationService/OrderStatus/OrderStatus.class
+com/order/CreationService/DAO/OrderRepository.class
 com/order/CreationService/Model/OrderItem.class
+com/order/CreationService/Model/OrderRequest.class
 com/order/CreationService/CreationServiceApplication.class
-com/order/CreationService/DAO/Repository.class
+com/order/CreationService/Model/OrderItemRequest.class
+com/order/CreationService/ExceptionHandler/BadRequestException.class
