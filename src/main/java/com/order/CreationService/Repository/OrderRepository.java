@@ -1,4 +1,4 @@
-package com.order.CreationService.DAO;
+package com.order.CreationService.Repository;
 
 import com.order.CreationService.Model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

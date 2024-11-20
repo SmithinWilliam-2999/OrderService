@@ -1,6 +1,6 @@
 package com.order.CreationService.Service;
 
-import com.order.CreationService.DAO.OrderRepository;
+import com.order.CreationService.Repository.OrderRepository;
 import com.order.CreationService.ExceptionHandler.BadRequestException;
 import com.order.CreationService.Model.Order;
 import com.order.CreationService.Model.OrderItem;
