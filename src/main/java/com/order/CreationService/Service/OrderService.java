@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,16 +32,13 @@ public class OrderService {
     public Order createOrder(OrderRequest orderRequest) {
         logger.info("Creating a new order with {} items", orderRequest.getItems().size());
 
-        // Validate incoming order request
         validateOrderRequest(orderRequest);
 
-        // Create new order object
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
         order.setCreatedAt(LocalDateTime.now());
         order.setStatus(OrderStatus.CREATED);
 
-        // Map order items from request to order items entities
         List<OrderItem> items = orderRequest.getItems().stream()
                 .map(requestItem -> {
                     logger.debug("Adding item: productCode={}, quantity={}, unitPrice={}",
@@ -52,15 +48,13 @@ public class OrderService {
                     item.setProductCode(requestItem.getProductCode());
                     item.setQuantity(requestItem.getQuantity());
                     item.setUnitPrice(requestItem.getUnitPrice());
-                    item.setOrder(order);  // Set the reference back to the order
+                    item.setOrder(order);
                     return item;
                 }).collect(Collectors.toList());
 
-        // Set order items and total amount
         order.setItems(items);
         order.setTotalAmount(calculateTotalAmount(items));
 
-        // Persist the order into the database
         Order savedOrder = orderRepository.save(order);
         logger.info("Order created successfully with orderNumber={}", savedOrder.getOrderNumber());
 
@@ -73,7 +67,6 @@ public class OrderService {
             throw new BadRequestException("Order must have at least one item.");
         }
 
-        // Validate each item in the order
         for (OrderItemRequest item : orderRequest.getItems()) {
             if (item.getQuantity() <= 0) {
                 logger.error("Validation failed: Quantity must be positive for productCode={}", item.getProductCode());

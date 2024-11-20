@@ -32,8 +32,6 @@ public class Order {
 
     private BigDecimal totalAmount;
 
-    // Getters and Setters
-
     public Long getId() {
         return id;
     }
